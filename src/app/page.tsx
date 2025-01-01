@@ -54,18 +54,33 @@ export default function Home() {
 
   function renderizarFormProduto() {
     return (
-      <div className="flex gap-5 items-end">
-        <div className="flex flex-col">
-          <label htmlFor="nome">Nome</label>
-          <input
-            id="nome"
-            type="text"
-            value={produto.nome ?? ""}
-            onChange={(e) => setProduto({ ...produto, nome: e.target.value })}
-            className="bg-zinc-700 p-2 rounded-md"
-          />
+      <div className="flex flex-col gap-5 items-end">
+        <div className="flex gap-4">
+          <div className="flex flex-col">
+            <label htmlFor="nome">Nome</label>
+            <input
+              id="nome"
+              type="text"
+              value={produto.nome ?? ""}
+              onChange={(e) => setProduto({ ...produto, nome: e.target.value })}
+              className="bg-zinc-700 p-2 rounded-md"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="preco">Preço</label>
+            <input
+              id="preco"
+              type="number"
+              value={produto.preco ?? ""}
+              onChange={(e) =>
+                setProduto({ ...produto, preco: +e.target.value })
+              }
+              className="bg-zinc-700 p-2 rounded-md"
+            />
+          </div>
         </div>
-        <div className="flex flex-col">
+
+        <div className="flex flex-col w-full">
           <label htmlFor="descricao">Descrição</label>
           <input
             id="descricao"
@@ -77,28 +92,19 @@ export default function Home() {
             className="bg-zinc-700 p-2 rounded-md"
           />
         </div>
-        <div className="flex flex-col">
-          <label htmlFor="preco">Preço</label>
-          <input
-            id="preco"
-            type="number"
-            value={produto.preco ?? ""}
-            onChange={(e) => setProduto({ ...produto, preco: +e.target.value })}
-            className="bg-zinc-700 p-2 rounded-md"
-          />
-        </div>
-        <div>
+
+        <div className="relative w-full">
           {produto.id ? (
             <button
               onClick={alterarProduto}
-              className="bg-blue-500 px-4 py-2 rounded-md"
+              className="bg-blue-900 px-4 py-2 rounded-md w-full"
             >
               Alterar Produto
             </button>
           ) : (
             <button
               onClick={criarProduto}
-              className="bg-blue-500 px-4 py-2 rounded-md"
+              className="bg-blue-500 px-4 py-2 rounded-md w-full"
             >
               Criar Produto
             </button>
@@ -110,15 +116,17 @@ export default function Home() {
 
   function renderizarProdutos() {
     return (
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-3">
         {produtos.map((produto: any) => (
           <div
             key={produto.id}
-            className="flex items-center gap-2 bg-zinc-800 px-4 py-2 rounded-md"
+            className="flex flex-col  gap-2 bg-zinc-800 px-4 py-2 rounded-md w-[540px]"
           >
-            <div className="flex-1">{produto.nome}</div>
-            <div>{produto.preco}</div>
-            <div>
+            <div className="flex gap-2 items-start">
+              <div className="flex-1">{produto.nome}</div>
+              <div>{produto.preco}</div>
+            </div>
+            <div className="flex flex-col gap-2">
               <button
                 onClick={() => obterProdutoPorId(produto.id)}
                 className="bg-green-500 p-2 rounded-md"
@@ -139,7 +147,7 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen gap-10">
+    <div className="flex  justify-center items-center h-screen gap-12">
       {renderizarFormProduto()}
       {renderizarProdutos()}
     </div>
